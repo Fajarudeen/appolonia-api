@@ -6,6 +6,7 @@ import { cwd } from 'process';
 import mongoSanitize from 'express-mongo-sanitize';
 import compression from 'compression';
 import helmet from 'helmet';
+import { dashboardRouter } from './src/routes/dashboard/dashboardRoutes.js';
 
 const app = express();
 
@@ -33,9 +34,10 @@ app.use(
 
 const { PORT } = env;
 
-app.get('/', (req, res) => {
-	res.send('Hey We Made It !');
-});
+app.use('/api/dashboard', dashboardRouter);
+// app.get('/', (req, res) => {
+// 	res.send('Hey We Made It !');
+// });
 
 app.use((req, res, next) => {
 	const error = new Error('Not Found');

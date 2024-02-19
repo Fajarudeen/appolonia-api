@@ -1,32 +1,27 @@
 import mongoose from 'mongoose';
 
-const universitySchema = new mongoose.Schema(
+const employeeSchema = new mongoose.Schema(
 	{
-		name: {
+		deptId: {
+			type: mongoose.Types.ObjectId,
+		},
+		firstName: {
 			type: String,
 			required: true,
 		},
-		country: {
+		lastName: {
 			type: String,
 			required: true,
 		},
-		facts: {
+		email: {
 			type: String,
 			required: true,
 		},
-		awards: {
+		phone: {
 			type: String,
 			required: true,
 		},
-		description: {
-			type: String,
-			required: true,
-		},
-		campusInfo: {
-			type: String,
-			required: true,
-		},
-		universityLogo: {
+		address: {
 			type: String,
 			required: true,
 		},
@@ -38,4 +33,4 @@ const universitySchema = new mongoose.Schema(
 	{ timestamps: true },
 );
 
-export default mongoose.model('Universities', universitySchema);
+export const EmployeeModel = mongoose.model('employees', employeeSchema);

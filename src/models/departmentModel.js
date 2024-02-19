@@ -1,16 +1,12 @@
 import mongoose from 'mongoose';
 
-const trainingSchema = new mongoose.Schema(
+const departmentSchema = new mongoose.Schema(
 	{
-		title: {
+		department: {
 			type: String,
 			required: true,
 		},
-		description: {
-			type: String,
-			required: true,
-		},
-		image: {
+		section: {
 			type: String,
 			required: true,
 		},
@@ -22,4 +18,4 @@ const trainingSchema = new mongoose.Schema(
 	{ timestamps: true },
 );
 
-export default mongoose.model('Trainings', trainingSchema);
+export const DepartmentModel = mongoose.model('departments', departmentSchema);

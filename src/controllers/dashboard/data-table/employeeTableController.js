@@ -1,7 +1,7 @@
-import blogsModel from '../../../models/mainCategoryModel.js';
+import { EmployeeModel } from '../../../models/employeeModel.js';
 import { serverError } from '../../../utils/errorHandler.js';
 
-export const getBlogTable = async (req, res) => {
+export const getEmployeeTable = async (req, res) => {
 	try {
 		const page = Math.abs(Number.parseInt(req.query.page) || 1);
 		const pageSize = 15;
@@ -13,13 +13,6 @@ export const getBlogTable = async (req, res) => {
 			{
 				$sort: { createdAt: -1 },
 			},
-			// {
-			// 	$project: {
-			// 		_id: 1,
-			// 		question: 1,
-			// 		answer: 1,
-			// 	},
-			// },
 			{
 				$facet: {
 					paginatedResults: [{ $skip: (page - 1) * pageSize }, { $limit: pageSize }],
@@ -32,21 +25,21 @@ export const getBlogTable = async (req, res) => {
 			},
 		];
 
-		const blogs = await blogsModel.aggregate(aggregationPipeline);
+		const employees = await EmployeeModel.aggregate(aggregationPipeline);
 
-		if (!blogs || blogs.length === 0) {
+		if (!employees || employees.length === 0) {
 			return res.status(200).json({
 				success: false,
-				message: 'No blogs found',
+				message: 'No employee found',
 				data: {},
 			});
 		}
-		const [result] = blogs;
+		const [result] = employees;
 
 		return res.status(200).json({
 			success: true,
-			message: 'Blogs data fetched',
-			data: { blogs: result.paginatedResults, totalCount: result.totalCount.at(0)?.count, currentPage: page },
+			message: 'Employee data fetched',
+			data: { employees: result.paginatedResults, totalCount: result.totalCount.at(0)?.count, currentPage: page },
 		});
 	} catch (error) {
 		return serverError(error);
